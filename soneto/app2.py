@@ -3,7 +3,7 @@ from typing import Callable, List
 from collections import OrderedDict
 
 
-def processa_soneto(file: str) -> dict:
+def processa_soneto(file: str) -> tuple:
 
     def gera_lista_palavras() -> List[str]:
         
@@ -24,18 +24,20 @@ def processa_soneto(file: str) -> dict:
 
         return palavras
 
-    return {"gera_lista_palavras":gera_lista_palavras,
-            "remove_duplicidade":remove_duplicidade,
-            "conta_palavras":conta_palavras, 
-            "total_ocorrencias":total_ocorrencias}
+    return total_ocorrencias, \
+        remove_duplicidade, \
+            conta_palavras, \
+                gera_lista_palavras
+
 
 if __name__ == "__main__":
 
-    fn_soneto = processa_soneto("soneto/soneto.txt")
+    total_ocorrencias, \
+        remove_duplicidade, \
+            conta_palavras, \
+                gera_lista_palavras = processa_soneto("soneto/soneto.txt")
     
-    palavras = fn_soneto["total_ocorrencias"](fn_soneto["remove_duplicidade"]\
-                                              (fn_soneto["conta_palavras"]\
-                                               (fn_soneto["gera_lista_palavras"]())))
+    palavras = total_ocorrencias(remove_duplicidade(conta_palavras(gera_lista_palavras())))
     
     for palavra in palavras:
         print(palavra)
