@@ -1,6 +1,19 @@
-# Arquivo de leitura de palavras
+# Soneto
 
-Este arquivo tem como proposta ler palavras e contabiliza-las
+Projeto de estudo para mineração e análise de palavras.
 
-Usamos esta fonte para extrair o poema citado no programa: 
-https://brasilescola.uol.com.br/literatura/o-poema-caracteristicas-especificas.htm
+**Nota:** Para este desafio foi utilizado o ***Soneto de fidelidade (1939)***, de [Vinicius de Moraes](https://brasilescola.uol.com.br/biografia/vinicius-moraes.htm) (1913-1980)
+
+## Procedimentos para execução
+
+Instalar dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Executar módulo **app**:
+
+```bash
+python soneto/app.py
+```
