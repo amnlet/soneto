@@ -1,5 +1,8 @@
+from decouple import config
+
 def contador_de_palavras():
-    with open("soneto/soneto_de_fidelidade.txt", "r") as f:
+
+    with open(config('ARQUIVO_POEMA'), "r") as f:
         linhas = f.read().splitlines() #Aqui ele vai ler e separar as linhas e tira o \n
         matriz = {} #aqui estou usando o dictionary eu tentei [] por muito tempo o chat GPT me indicou isso, mas precisava entender
         for linha in linhas:

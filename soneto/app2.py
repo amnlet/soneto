@@ -1,42 +1,14 @@
-from re import sub
-from typing import Callable, List
-from collections import OrderedDict
+from sys import exit
+from traceback import print_exc
+from core.soneto_core import processa_soneto
+from decouple import config
 
-
-def processa_soneto(file: str) -> tuple:
-
-    def gera_lista_palavras() -> List[str]:
-
-        pattern = "[^A-Za-z\\s]"
-
-        with open(file, "r") as f:
-            return sub(pattern, "", f.read().lower()).split()
-
-    def remove_duplicidade(palavras: map):
-        return list(OrderedDict.fromkeys(palavras))
-
-    def conta_palavras(palavras: List[str]):
-        return map(lambda p: f"{p}:{palavras.count(p)}", palavras)
-
-    def total_ocorrencias(palavras: List[str]) -> List[str]:
-
-        palavras.sort(key=lambda w: w.split(":")[1], reverse=True)
-
-        return palavras
-
-    return total_ocorrencias, \
-        remove_duplicidade, \
-        conta_palavras, \
-        gera_lista_palavras
-
-
-if __name__ == "__main__":
+def main():
 
     total_ocorrencias, \
         remove_duplicidade, \
         conta_palavras, \
-        gera_lista_palavras = processa_soneto(
-            "soneto/soneto_de_fidelidade.txt")
+        gera_lista_palavras = processa_soneto(config('ARQUIVO_POEMA'))
 
     palavras = total_ocorrencias(remove_duplicidade(
         conta_palavras(gera_lista_palavras())))
@@ -46,3 +18,17 @@ if __name__ == "__main__":
 
         if int(total) > 1:
             print(f"Palavra: {palavra_:13} = {total}")
+
+if __name__ == "__main__":
+
+    try:
+
+        main()
+
+        exit(0)
+
+    except Exception:
+
+        print_exc()
+
+        exit(1)
