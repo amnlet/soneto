@@ -1,6 +1,6 @@
 from re import sub
 
-from typing import Callable, List, Iterable
+from typing import Callable, Iterable
 from collections import OrderedDict
 
 Soneto = tuple[Callable[[list[str]], list[str]],
@@ -9,22 +9,22 @@ Soneto = tuple[Callable[[list[str]], list[str]],
                Callable[[], list[str]]]
 
 
-def processa_soneto(file: str) -> Soneto:
+def processa_soneto(file: str | bool) -> Soneto:
 
-    def gera_lista_palavras() -> List[str]:
+    def gera_lista_palavras() -> list[str]:
 
         pattern = "[^A-Za-z\\s]"
 
         with open(file, "r") as f:
             return sub(pattern, "", f.read().lower()).split()
 
-    def remove_duplicidade(palavras: Iterable[str]) -> List[str]:
+    def remove_duplicidade(palavras: Iterable[str]) -> list[str]:
         return list(OrderedDict.fromkeys(palavras))
 
-    def conta_palavras(palavras: List[str]) -> Iterable[str]:
+    def conta_palavras(palavras: list[str]) -> Iterable[str]:
         return map(lambda p: f"{p}:{palavras.count(p)}", palavras)
 
-    def total_ocorrencias(palavras: List[str]) -> List[str]:
+    def total_ocorrencias(palavras: list[str]) -> list[str]:
 
         palavras.sort(key=lambda w: w.split(":")[1], reverse=True)
 
